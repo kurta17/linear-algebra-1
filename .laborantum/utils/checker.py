@@ -3,7 +3,8 @@ import math
 import numbers
 import numpy
 import os
-import torch
+import sys
+# import torch
 
 from json_tricks import load, dump
 from copy import deepcopy
@@ -78,6 +79,9 @@ def run_checks(
 
 
     if isinstance(expected, numpy.ndarray):
+        if not isinstance(recieved, numpy.ndarray):
+            explanation = 'FAILED: Numpy array is expected'
+            return [{'name': test_info, 'ok': False, 'status': explanation}]
 
         # Checking if the answer exists
         if recieved is None:
@@ -95,7 +99,7 @@ def run_checks(
                 )
                 return [{'name': test_info, 'ok': False, 'status': explanation}]
 
-        # Checking if Numpy arrays have the same dtype
+# Checking if Numpy arrays have the same dtype
         if recieved.dtype != expected.dtype:
             explanation = (
                 'FAILED: data types do not match:\n' +
@@ -146,11 +150,11 @@ def run_checks(
             
         return [{'name': test_info, 'ok': True, 'status': 'OK'}]
 
-    if isinstance(expected, torch.Tensor):
-        return run_checks(
-            recieved.detach().numpy(), 
-            expected.detach().numpy(),
-            eps=eps)
+    # if isinstance(expected, torch.Tensor):
+    #     return run_checks(
+    #         recieved.detach().numpy(), 
+    #         expected.detach().numpy(),
+    #         eps=eps)
 
 
 def replace_last_entrance(path, to_replace, replacement):
@@ -181,20 +185,24 @@ def get_report_path(task_path, fname='report.json'):
 
 
 def check_json(task_path):
+    print("In Check JSON", file=sys.stderr)
     teacher_path = get_teacher_path(task_path)
     student_path = get_student_path(task_path)
     report_path = get_report_path(task_path)
 
+    print("1", file=sys.stderr)
     student_state = load(str(student_path))
     teacher_state = load(str(teacher_path))
 
+    print("2", file=sys.stderr)
     report = run_checks(student_state, teacher_state, test_info='root')
     report = {'test_cases': report}
 
+    print("3", file=sys.stderr)
     report_path.parent.mkdir(parents=True, exist_ok=True)
 
+    print(str(report_path.parent), file=sys.stderr)
     dump(report, str(report_path))
-
 
 def write_result(result, task_path):
     student_path = get_student_path(task_path)
@@ -212,7 +220,7 @@ def ipynb_to_py(source, target):
         fout.write(source.encode('utf-8'))
 
 
-if __name__ == '__main__':
+if name == 'main':
     parser = argparse.ArgumentParser(
                     prog='ProgramName',
                     description='What the program does',
