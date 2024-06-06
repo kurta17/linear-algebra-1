@@ -220,7 +220,7 @@ def ipynb_to_py(source, target):
         fout.write(source.encode('utf-8'))
 
 
-if name == 'main':
+if __name__ == '__main__':
     parser = argparse.ArgumentParser(
                     prog='ProgramName',
                     description='What the program does',

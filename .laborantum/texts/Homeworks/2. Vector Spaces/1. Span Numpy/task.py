@@ -20,40 +20,7 @@ if index > 0:
 
 os.chdir(path)
 
-get_ipython().system('{sys.executable} -m pip -q install --user numpy json-tricks torch jupyter nbconvert')
-
-
-# In[1]:
-
-
-# import numpy
-# import json_tricks
-# import os
-
-# numpy.random.seed(42)
-
-# debug_cases = []
-# for index in range(20):
-#     A_shape = numpy.random.randint(1, 10, size=[2])
-#     b_shape = A_shape[-1:]
-#     A = numpy.random.randint(-10, 10, size=A_shape)
-#     b = numpy.random.randint(-10, 10, size=b_shape)
-#     debug_cases.append({'A': A, 'b': b})
-
-# os.makedirs('testcases', exist_ok=True)
-# with open('testcases/debug_cases.json', 'w+') as fin:
-#     fin.write(json_tricks.dumps(debug_cases))
-
-# public_cases = []
-# for index in range(100):
-#     A_shape = numpy.random.randint(1, 10, size=[2])
-#     b_shape = A_shape[-1:]
-#     A = numpy.random.randn(*A_shape)
-#     b = numpy.random.randn(*b_shape)
-#     public_cases.append({'A': A, 'b': b})
-
-# with open('testcases/public_cases.json', 'w+') as fin:
-#     fin.write(json_tricks.dumps(public_cases))
+get_ipython().system('{sys.executable} -m pip install numpy json-tricks torch jupyter nbconvert')
 
 
 # In[4]:
@@ -76,7 +43,8 @@ import numpy as np
 import numpy.typing as npt
 
 def linear_combination(A, b):
-    return (A * b.reshape([1, -1])).sum(axis=1)
+    
+    return np.dot(A, b)
 
 
 # In[5]:
