@@ -20,7 +20,7 @@ if index > 0:
 
 os.chdir(path)
 
-get_ipython().system('{sys.executable} -m pip -q install --user numpy json-tricks torch jupyter nbconvert')
+get_ipython().system('{sys.executable} -m pip -q install numpy json-tricks torch jupyter nbconvert')
 
 
 # In[2]:
@@ -44,7 +44,11 @@ public_cases = json_tricks.load(str(path / 'testcases' / 'public_cases.json'))
 import numpy as np
 
 def cos(x, y):
-    return (x * y).sum() / np.sqrt(x ** 2).sum() / np.sqrt((y ** 2).sum())
+    d = np.dot(x,y)
+    n = np.linalg.norm(x) * np.linalg.norm(y)
+    cos = d / n
+    return np.arccos(cos)
+    
 
 
 # In[8]:

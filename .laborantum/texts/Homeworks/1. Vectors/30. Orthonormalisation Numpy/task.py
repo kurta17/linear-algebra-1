@@ -20,7 +20,7 @@ if index > 0:
 
 os.chdir(path)
 
-get_ipython().system('{sys.executable} -m pip -q install --user numpy json-tricks torch jupyter nbconvert')
+get_ipython().system('{sys.executable} -m pip -q install numpy json-tricks torch jupyter nbconvert')
 
 
 # In[9]:
@@ -44,14 +44,17 @@ public_cases = json_tricks.load(str(path / 'testcases' / 'public_cases.json'))
 import numpy as np
 
 def orthonormalisation(vecs):
-    res = []
-    for vec in vecs:
-        for other in res:
-            vec = vec - (vec * other).sum() / (other * other).sum() * other
-        if np.sqrt((vec * vec).sum()) < 1.0e-4:
-            continue
-        res.append(vec / np.sqrt((vec * vec).sum()))
-    return res
+    vecs = [v.astype(float) for v in vecs]
+    ans = []
+    for i in range(len(vecs)):
+        v = vecs[i]
+        for j in range(len(ans)):
+            v -= np.dot(v, ans[j]) * ans[j]
+        if np.linalg.norm(v) != 0:
+            v /= np.linalg.norm(v)
+            ans.append(v)
+
+    return (np.array(ans))
 
 
 # In[12]:

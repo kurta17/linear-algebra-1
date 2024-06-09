@@ -46,20 +46,30 @@ import numpy.typing as npt
 from typing import Dict
 
 def vector_operations(x, y):
-    ## YOUR CODE HERE
+    expression = x + y
+    dot_prod = np.dot(x, y)
+    length_a = np.linalg.norm(x)
+    length_b = np.linalg.norm(y)
+    angle = np.arccos(dot_prod / (length_a * length_b))
+    dir_a = x / length_a
+    dir_b = y / length_b
+    a_proj_b = (dot_prod / length_a) * dir_a 
+    b_proj_a = (dot_prod / length_b) * dir_b
+    a_orth_b = x - a_proj_b
+    b_orth_a = y - b_proj_a
 
     answer = {
-        'expression': 1,
-        'dot_prod': 1,
-        'length_a': 1,
-        'length_b': 1,
-        'angle': 1,
-        'dir_a': 1,
-        'dir_b': 1,
-        'a_proj_b': 1,
-        'b_proj_a': 1,
-        'a_orth_b': 1,
-        'b_orth_a': 1
+        'expression': expression,
+        'dot_prod': dot_prod,
+        'length_a': length_a,
+        'length_b': length_b,
+        'angle': angle,
+        'dir_a': dir_a,
+        'dir_b': dir_b,
+        'a_proj_b': a_proj_b,
+        'b_proj_a': b_proj_a,
+        'a_orth_b': a_orth_b,
+        'b_orth_a': b_orth_a
     }
 
     return answer
