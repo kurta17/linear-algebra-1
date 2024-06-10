@@ -28,7 +28,7 @@ get_ipython().system('{sys.executable} -m pip -q install numpy json-tricks torch
 
 import json_tricks
 
-path = Path('.laborantum/texts/Homeworks/1. Vectors/13. Sum of Vectors Numpy Vectorized')
+path = Path('.laborantum/texts/Homeworks/1. Vectors/26. Cosine Distance Numpy')
 
 
 # In[3]:

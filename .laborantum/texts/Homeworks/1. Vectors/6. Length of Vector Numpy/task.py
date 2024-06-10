@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[4]:
+# In[2]:
 
 
 get_ipython().run_line_magic('reload_ext', 'autoreload')
@@ -23,7 +23,7 @@ os.chdir(path)
 get_ipython().system('{sys.executable} -m pip -q install --user numpy json-tricks torch jupyter nbconvert')
 
 
-# In[14]:
+# In[3]:
 
 
 import json_tricks
@@ -31,27 +31,35 @@ import json_tricks
 path = Path('.laborantum/texts/Homeworks/1. Vectors/6. Length of Vector Numpy')
 
 
-# In[18]:
+# In[4]:
 
 
 debug_cases = json_tricks.load(str(path / 'testcases' / 'debug_cases.json'))
 public_cases = json_tricks.load(str(path / 'testcases' / 'public_cases.json'))
 
 
-# In[19]:
+# In[5]:
 
+
+import numpy as np
 
 def vector_length(x):
-    sum = 0.0
-    for index in range(len(x)):
-        sum += x[index] ** 2
+    sq = 0
+    for i in x:
+        sq += i**2
+    ans = np.sqrt(sq)
+    return ans
 
-    return sum ** 0.5
+
+# In[6]:
 
 
-# In[20]:
+import time
 
+start = time.time()
 
 debug_result = [vector_length(**x) for x in debug_cases]
 answer = [vector_length(**x) for x in public_cases]
+
+print(time.time() - start, '<- Elapsed time')
 

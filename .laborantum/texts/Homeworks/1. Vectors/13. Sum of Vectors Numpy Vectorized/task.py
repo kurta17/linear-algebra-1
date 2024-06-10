@@ -45,6 +45,7 @@ import numpy as np
 
 def vector_sum(x, y):
     return x + y
+    
 
 
 # In[5]:

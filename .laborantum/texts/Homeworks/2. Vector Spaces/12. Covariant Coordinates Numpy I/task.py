@@ -42,11 +42,8 @@ public_cases = json_tricks.load(
 import numpy as np
 
 def get_covariant_coordinates(B, x):
-    ## B * res = x
-    if B.shape[0] != B.shape[1]:
-        raise ValueError("Matrix B must be square")
-    
-    res = np.linalg.solve(B, x)
+    # B * res = x
+    res = np.dot(np.inverse(B), x)
     return res
 
 
