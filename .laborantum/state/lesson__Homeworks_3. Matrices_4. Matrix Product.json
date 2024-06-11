@@ -1,1 +1,1 @@
-{"correct":0.3333333333333333,"total":1,"failedTests":["root -> task2: FAILED: Numpy array is expected","root -> task3: FAILED: Numpy array is expected"]}
+{"correct":1,"total":1,"failedTests":[]}
