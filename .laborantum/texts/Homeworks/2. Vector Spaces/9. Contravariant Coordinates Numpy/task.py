@@ -42,10 +42,8 @@ public_cases = json_tricks.load(
 import numpy as np
 
 def vectors_from_contravariant_coords(B, C):
-    B = np.expand_dims(B, 1)
-    C = np.expand_dims(C, 2)
-    res = np.sum(B * C, axis=0)
-    return res
+    
+    return 0
 
 
 # In[4]:
