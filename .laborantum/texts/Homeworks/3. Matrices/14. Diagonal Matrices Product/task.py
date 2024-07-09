@@ -34,14 +34,9 @@ public_cases = json_tricks.load(
 
 import numpy as np
 
+
 def DA_AD_product(D, A):
-    dig = np.diag(D)
-    AD = A * dig[:, np.newaxis]
-    DA = A * dig[np.newaxis, :]
-    res = {
-        'DA': np.array(DA),
-        'AD': np.array(AD)
-    }
+    res = {"DA": np.diag(D).reshape([-1, 1]) * A, "AD": A * np.diag(D).reshape([1, -1])}
     return res
 
 

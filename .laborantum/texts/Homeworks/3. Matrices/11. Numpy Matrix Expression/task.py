@@ -32,22 +32,13 @@ public_cases = json_tricks.load(
 # In[6]:
 
 
-import numpy as np
 from scipy.linalg import expm
+import numpy as np
 
-def calculate_expression(A, B, C, x):
-    B_plus_2C = B + 2 * C
-    
-    AT_B_plus_2C = np.dot(A.T, B_plus_2C)
-    
-    I = np.eye(AT_B_plus_2C.shape[0]) 
-    matrix_to_exponentiate = AT_B_plus_2C + 3 * I
-    
-    matrix_exp = expm(matrix_to_exponentiate)
-    
-    result = np.dot(matrix_exp, x)
 
-    return result
+def formula(A, B, C, x):
+    I = np.eye(A.shape[1], B.shape[1])
+    return np.exp(A.T @ (B + 2 * C) + 3 * I) @ x
 
 
 # In[7]:

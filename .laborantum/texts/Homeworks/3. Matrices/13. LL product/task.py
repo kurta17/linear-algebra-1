@@ -34,18 +34,9 @@ public_cases = json_tricks.load(
 
 import numpy as np
 
+
 def LL_product(L1, L2):
-    n = L1.shape[0]
-    L_result = np.zeros((n, n))
-    
-    for i in range(n):
-        for j in range(i+1):  
-            sum = 0
-            for k in range(j+1):  
-                sum += L1[i][k] * L2[k][j]
-            L_result[i][j] = sum
-            
-    return np.array(L_result)
+    return np.diag(np.diag(L1) * np.diag(L2))
 
 
 # In[4]:

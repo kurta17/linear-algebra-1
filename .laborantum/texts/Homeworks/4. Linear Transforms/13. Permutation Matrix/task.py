@@ -65,11 +65,10 @@ import numpy as np
 
 def permutation_matrix(perm):
     N = len(perm)
-    res = np.zeros([N, N])
-
-    res[np.arange(N), perm] = 1
-    
-    return res
+    A = np.zeros((N, N))
+    for i in range(N):
+        A[i, perm[i]] = 1
+    return A
 
 
 # In[9]:

@@ -35,12 +35,22 @@ public_cases = json_tricks.load(
 import numpy as np
 
 def sparseProduct(A, B):
-    n, m = A.shape
-    C = np.zeros((n, m))
-    for r, c, v in B:
-        C[:, r] += A[:, c] * v
+    res = np.zeros(A.shape)
 
-    return np.array(C)
+    map = {}
+
+    for index in range((B.shape[0])):
+        r, c, v = B[index, :]
+        if c not in map:
+            map[c] = {}
+        map[c][r] = v
+
+    for c in map:
+        for r_left in range(A.shape[1]):
+            for r_right in map[c]:
+                res[r_left, c] += map[c][r_right] * A[r_left, r_right]
+
+    return res
 
 
 # In[ ]:

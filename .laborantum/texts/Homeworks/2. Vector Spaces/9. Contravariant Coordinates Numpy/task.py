@@ -41,9 +41,17 @@ public_cases = json_tricks.load(
 
 import numpy as np
 
+
 def vectors_from_contravariant_coords(B, C):
-    
-    return 0
+    B = np.array(B)
+    C = np.array(C)
+
+    if B.shape[1] != C.shape[1]:
+        raise ValueError("Shapes are not aligned for matrix multiplication")
+
+    V = np.einsum("ij,ik->kj", C, B)
+
+    return V
 
 
 # In[4]:

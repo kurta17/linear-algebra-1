@@ -42,23 +42,9 @@ public_cases = json_tricks.load(
 import numpy as np
 
 def is_independent(A):
-    A = A.astype('float64')  
-    rows, cols = A.shape
-    ans = True
-    for col in range(cols):
-        if A[col, col] == 0:
-            for row in range(col+1, rows):
-                if A[row, col] != 0:
-                    A[[col, row]] = A[[row, col]]
-                    break
-        for row in range(col+1, rows):
-            r = A[row, col] / A[col, col]
-            A[row, :] -= r * A[col, :]
-            if np.all(A[row, :] == 0):
-                ans = False 
-                break
-            
-    return ans
+    U, S, Vt = np.linalg.svd(A)
+    rank = np.sum(S > 1e-10)  
+    return rank == A.shape[0]
 
 
 # In[4]:
