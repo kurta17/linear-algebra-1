@@ -4,16 +4,24 @@ from gauss_elimination_2 import gauss_elimination_2
 import numpy as np
 
 def invert_matrix(A):
-    m, n = A.shape
-    if m != n:
-        raise ValueError("Input matrix must be square")
+    A = A.astype(float)
+    n = A.shape[0]
+    identity_matrix = np.eye(n)
+    tol = 1e-8
+    P, U, identity_matrix = gauss_elimination_1(A, identity_matrix)
     
-    I = np.eye(m)
-    
-    P, U, y = gauss_elimination_1(A, I)
-    inv_A = gauss_elimination_2(U, y)
-    
-    if np.allclose(np.diag(U), 0):
+    if np.any(np.abs(np.diag(U)) < tol):
         return None
     
-    return inv_A
+    for i in range(n):
+        for j in range(i):
+            if np.abs(U[i, j]) > tol:
+                return None
+
+    _, inverse_matrix = gauss_elimination_2(U, identity_matrix)
+    
+    
+    dif = np.abs(A.astype(float) @ inverse_matrix - np.eye(A.shape[0])).sum()
+    
+
+    return inverse_matrix
